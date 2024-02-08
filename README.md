@@ -1,6 +1,8 @@
 # carimbo
 
-A Clojure library designed to ... well, that part is up to you.
+![img.png](doc%2Fimages%2Fimg.png)
+
+https://www.youtube.com/watch?v=CX2isNw6N5A
 
 ## Usage
 
