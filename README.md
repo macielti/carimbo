@@ -1,7 +1,5 @@
 # carimbo
 
-![img.png](doc%2Fimages%2Fimg.png)
-
 https://www.youtube.com/watch?v=CX2isNw6N5A
 
 ## Usage
