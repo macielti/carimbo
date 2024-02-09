@@ -26,6 +26,6 @@
     :datalevin (component/using (component.datalevin/new-datalevin database.config/schema) [:config])
     :customers (component/using (customers/new-customers) [:config :datalevin])
     :routes (component.routes/new-routes diplomat.http-server/routes)
-    :service (component/using (component.service/new-service) [:routes :datalevin])))
+    :service (component/using (component.service/new-service) [:routes :datalevin :config])))
 
 (def -main start-system!)

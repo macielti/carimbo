@@ -12,7 +12,8 @@
                  [datalevin "0.8.25"]
                  [net.clojars.macielti/common-clj "24.49.48"]
                  [hashp "0.2.1"]
-                 [clojure.java-time "1.4.2"]]
+                 [clojure.java-time "1.4.2"]
+                 [nubank/matcher-combinators "3.5.0"]]
 
   :injections [(require 'hashp.core)]
 

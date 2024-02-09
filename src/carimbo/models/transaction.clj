@@ -7,6 +7,10 @@
 
 (def transaction-skeleton
   {:transaction/customer-id  s/Int
+   :transaction/amount       BigInteger
    :transaction/type         Type
    :transaction/description  s/Str
    :transaction/requested-at LocalDateTime})
+
+(s/defschema Transaction
+  transaction-skeleton)
