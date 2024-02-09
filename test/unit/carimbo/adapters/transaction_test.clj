@@ -39,3 +39,11 @@
                  :transaction/requested-at jt/local-date-time?
                  :transaction/type         :credit}
                 (adapters.transaction/database->internal fixtures.transaction/database-credit-transaction)))))
+
+(s/deftest type->wire-test
+  (testing "Given a type transaction internal representation, we can adapt to external representation"
+    (is (= "d"
+           (adapters.transaction/type->wire :debit)))
+
+    (is (= "c"
+           (adapters.transaction/type->wire :credit)))))
