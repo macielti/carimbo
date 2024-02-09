@@ -11,7 +11,8 @@
                  [prismatic/schema "1.4.1"]
                  [datalevin "0.8.25"]
                  [net.clojars.macielti/common-clj "24.49.48"]
-                 [hashp "0.2.1"]]
+                 [hashp "0.2.1"]
+                 [clojure.java-time "1.4.2"]]
 
   :injections [(require 'hashp.core)]
 
