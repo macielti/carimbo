@@ -16,26 +16,26 @@
       (is (= {:customer/balance 0
               :customer/id      1
               :customer/limit   100000}
-             (database.customer/lookup 1 database)))
+             (database.customer/lookup! 1 database)))
 
       (is (= {:customer/balance 0
               :customer/id      2
               :customer/limit   80000}
-             (database.customer/lookup 2 database)))
+             (database.customer/lookup! 2 database)))
 
       (is (= {:customer/balance 0
               :customer/id      3
               :customer/limit   1000000}
-             (database.customer/lookup 3 database)))
+             (database.customer/lookup! 3 database)))
 
       (is (= {:customer/balance 0
               :customer/id      4
               :customer/limit   10000000}
-             (database.customer/lookup 4 database)))
+             (database.customer/lookup! 4 database)))
 
       (is (= {:customer/balance 0
               :customer/id      5
               :customer/limit   500000}
-             (database.customer/lookup 5 database))))
+             (database.customer/lookup! 5 database))))
 
     (component/stop system)))

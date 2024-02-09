@@ -30,3 +30,12 @@
                  :transaction/requested-at inst?
                  :transaction/type         :credit}
                 (adapters.transaction/internal->database fixtures.transaction/credit-transaction)))))
+
+(s/deftest database->internal-test
+  (testing "Given a database transaction entity, we can adapt to internal model"
+    (is (match? {:transaction/amount       200
+                 :transaction/customer-id  1
+                 :transaction/description  "2 reais ou um presente misterioso?"
+                 :transaction/requested-at jt/local-date-time?
+                 :transaction/type         :credit}
+                (adapters.transaction/database->internal fixtures.transaction/database-credit-transaction)))))

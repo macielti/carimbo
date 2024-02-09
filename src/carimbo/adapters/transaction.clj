@@ -24,3 +24,7 @@
   [{:transaction/keys [requested-at] :as transaction} :- models.transaction/Transaction]
   (assoc transaction :transaction/requested-at (-> (jt/zoned-date-time requested-at (jt/zone-id "UTC"))
                                                    jt/java-date)))
+
+(s/defn database->internal :- models.transaction/Transaction
+  [{:transaction/keys [requested-at] :as transaction} :- wire.database.transaction/Transaction]
+  (assoc transaction :transaction/requested-at (jt/local-date-time requested-at (jt/zone-id "UTC"))))

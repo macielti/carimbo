@@ -13,7 +13,8 @@
                  [net.clojars.macielti/common-clj "24.49.48"]
                  [hashp "0.2.1"]
                  [clojure.java-time "1.4.2"]
-                 [nubank/matcher-combinators "3.5.0"]]
+                 [nubank/matcher-combinators "3.5.0"]
+                 [ch.qos.logback/logback-classic "1.2.10"]]
 
   :injections [(require 'hashp.core)]
 

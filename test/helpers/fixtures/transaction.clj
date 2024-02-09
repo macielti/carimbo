@@ -1,5 +1,6 @@
 (ns fixtures.transaction
-  (:require [java-time.api :as jt]))
+  (:require [java-time.api :as jt])
+  (:import (java.util Date)))
 
 (def requested-at (jt/local-date-time (jt/zone-id "UTC")))
 
@@ -14,3 +15,6 @@
    :transaction/description  "2 reais ou um presente misterioso?"
    :transaction/requested-at requested-at
    :transaction/type         :credit})
+
+(def database-credit-transaction
+  (assoc credit-transaction :transaction/requested-at (Date.)))

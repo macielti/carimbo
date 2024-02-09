@@ -6,6 +6,6 @@
 
 (s/deftest internal-to-wire-test
   (testing "Given an internal representation for Customer entity, we should be able to externalize it"
-    (is (= {:limite 100
+    (is (= {:limite 100000
             :saldo  0}
            (adapters.customer/internal->wire fixtures.customer/customer)))))
