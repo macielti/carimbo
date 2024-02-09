@@ -1,6 +1,9 @@
-# carimbo
+# `Carimbo` - Submission for "Rinha de Backend" (2024/Q1)
 
-https://www.youtube.com/watch?v=CX2isNw6N5A
+[Rinha de Backend - 2024/Q1](https://github.com/zanfranceschi/rinha-de-backend-2024-q1)
+
+
+[![Carimbo video](https://img.youtube.com/vi/CX2isNw6N5A/0.jpg)](https://www.youtube.com/watch?v=CX2isNw6N5A)
 
 ## Usage
 
