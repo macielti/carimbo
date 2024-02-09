@@ -4,7 +4,8 @@
             [common-clj.component.service :as component.service]
             [common-clj.component.datalevin :as component.datalevin]
             [carimbo.db.datalevin.config :as database.config]
-            [carimbo.customers :as customers]))
+            [carimbo.customers :as customers])
+  (:gen-class))
 
 (def system
   (component/system-map
@@ -24,3 +25,5 @@
     :customers (component/using (customers/new-customers) [:config :datalevin])
     #_:routes #_(component/using (component.routes/new-routes diplomat.http-server/routes) [:config])
     #_:service #_(component/using (component.service/new-service) [:routes :config])))
+
+(def -main start-system!)

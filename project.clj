@@ -22,4 +22,4 @@
   :jvm-opts ^:replace ["--add-opens=java.base/java.nio=ALL-UNNAMED"
                        "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
 
-  :main carimbo.components/start-system!)
+  :main carimbo.components)
