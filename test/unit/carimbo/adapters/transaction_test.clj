@@ -21,3 +21,12 @@
                  :transaction/requested-at jt/local-date-time?
                  :transaction/type         :credit}
                 (adapters.transaction/wire->internal fixtures.transaction/wire-credit-transaction 1)))))
+
+(s/deftest internal->database-test
+  (testing "Given a internal transaction entity, we can adapt to datomic"
+    (is (match? {:transaction/amount       200
+                 :transaction/customer-id  1
+                 :transaction/description  "2 reais ou um presente misterioso?"
+                 :transaction/requested-at inst?
+                 :transaction/type         :credit}
+                (adapters.transaction/internal->database fixtures.transaction/credit-transaction)))))
