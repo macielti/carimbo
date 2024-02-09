@@ -6,7 +6,7 @@
             [fixtures.customer]))
 
 (deftest insert-test
-  (testing "Given a document entity we can persist it on the database (datalevin)"
+  (testing "Given a customer entity we can persist it on the database (datalevin)"
     (let [database-uri (datalevin.util/tmp-dir (str "query-or-" (random-uuid)))
           db-connection (d/get-conn database-uri database.config/schema)]
 

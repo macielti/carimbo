@@ -16,3 +16,11 @@
 
 (defn start-system! []
   (component/start system))
+
+(def system-test
+  (component/system-map
+    :config (component.config/new-config "resources/config.example.edn" :test :edn)
+    :datalevin (component/using (component.datalevin/new-datalevin database.config/schema) [:config])
+    :customers (component/using (customers/new-customers) [:config :datalevin])
+    #_:routes #_(component/using (component.routes/new-routes diplomat.http-server/routes) [:config])
+    #_:service #_(component/using (component.service/new-service) [:routes :config])))
