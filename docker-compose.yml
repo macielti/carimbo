@@ -2,14 +2,15 @@ version: "3.5"
 
 services:
   api01:
-    image: ghcr.io/macielti/carimbo/carimbo:1707564816
+    image: ghcr.io/macielti/carimbo/carimbo:1707570440
     hostname: api01
     volumes:
       - ./resources/config.edn:/app/resources/config.edn
     ports:
       - "3000:3000"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.45"
-          memory: "200MB"
+      - "9010:9010"
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: "0.45"
+#          memory: "200MB"
