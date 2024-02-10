@@ -47,3 +47,11 @@
 
     (is (= "c"
            (adapters.transaction/type->wire :credit)))))
+
+(s/deftest ->wire-test
+  (testing "Giving a Internal transaction entity, we should be able to externalize"
+    (is (match? {:descricao    "2 reais ou um presente misterioso?"
+                 :realizada_em string?
+                 :tipo         "c"
+                 :valor        200}
+                (adapters.transaction/->wire fixtures.transaction/credit-transaction)))))
