@@ -7,4 +7,4 @@
 (s/defschema Transaction
   {:valor     s/Int
    :tipo      Type
-   :descricao s/Str})
+   :descricao (s/pred #(and (string? %) (<= 1 (count %) 10)))})

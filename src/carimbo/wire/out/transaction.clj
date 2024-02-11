@@ -3,7 +3,7 @@
             [schema.core :as s]))
 
 (def transaction-skeleton
-  {:valor        BigInteger
+  {:valor        s/Int
    :tipo         wire.in.transaction/Type
    :descricao    s/Str
    :realizada_em s/Str})
