@@ -2,11 +2,11 @@
   (:require [com.stuartsierra.component :as component]
             [carimbo.controllers.customer :as controllers.customer]))
 
-(defrecord Customers [config datalevin]
+(defrecord Customers [config datahike]
   component/Lifecycle
   (start [component]
     (let [{:keys [customers]} (-> config :config)
-          db-connection (-> datalevin :datalevin)]
+          db-connection (-> datahike :datahike)]
 
       (doseq [{:customer/keys [limit balance] :as customer} customers
               :let [customer' (assoc customer :customer/limit (biginteger limit)

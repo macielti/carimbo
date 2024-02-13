@@ -14,7 +14,7 @@ services:
 #      resources:
 #        limits:
 #          cpus: "0.6"
-#          memory: "120MB"
+#          memory: "220MB"
 
   api02:
     <<: *api
@@ -39,17 +39,19 @@ services:
 #          memory: "10MB"
 
   db:
-    build:
-      context: .
-      dockerfile: ./DockerfileDatalevin
+    image: postgres:alpine
     hostname: db
+    environment:
+      - POSTGRES_DB=carimbo
+      - POSTGRES_USER=carimbo-miguel
+      - POSTGRES_PASSWORD=xerox
     ports:
-      - "8898:8898"
+      - "5432:5432"
 #    deploy:
 #      resources:
 #        limits:
 #          cpus: "0.7"
-#          memory: "300MB"
+#          memory: "100MB"
 
 networks:
   default:

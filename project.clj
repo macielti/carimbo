@@ -8,20 +8,28 @@
             :url  "https://www.eclipse.org/legal/epl-2.0/"}
 
   :dependencies [[org.clojure/clojure "1.11.1"]
+                 [prismatic/plumbing "0.6.0"]
+                 [camel-snake-kebab "0.4.3"]
+                 [io.pedestal/pedestal.jetty "0.6.3"]
+                 [io.pedestal/pedestal.route "0.6.3"]
+                 [io.pedestal/pedestal.service "0.6.3"]
+                 [io.pedestal/pedestal.interceptor "0.6.3"]
+                 [com.stuartsierra/component "1.1.0"]
+                 [siili/humanize "0.1.1"]
                  [prismatic/schema "1.4.1"]
-                 [datalevin "0.8.25"]
-                 [net.clojars.macielti/common-clj "24.49.48"]
                  [hashp "0.2.1"]
                  [clojure.java-time "1.4.2"]
-                 [nubank/matcher-combinators "3.5.0"]]
+                 [io.replikativ/konserve "0.7.301"]
+                 [nubank/matcher-combinators "3.5.0"]
+                 [org.postgresql/postgresql "42.7.1"]
+                 [io.replikativ/datahike-jdbc "0.3.47"]
+                 [io.replikativ/datahike "0.6.1557"]
+                 [org.testcontainers/postgresql "1.17.6"]]
 
   :injections [(require 'hashp.core)]
 
   :repl-options {:init-ns carimbo.components}
 
   :test-paths ["test/unit" "test/integration" "test/helpers"]
-
-  :jvm-opts ^:replace ["--add-opens=java.base/java.nio=ALL-UNNAMED"
-                       "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
 
   :main carimbo.components)
