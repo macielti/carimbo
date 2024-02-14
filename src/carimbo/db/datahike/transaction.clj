@@ -4,20 +4,21 @@
             [carimbo.error :as error]
             [schema.core :as s]
             [datahike.api :as d]
-            [carimbo.models.transaction :as models.transaction]))
+            [carimbo.models.transaction :as models.transaction]
+            [datahike.http.client :as client]))
 
 (s/defn insert! :- models.transaction/Transaction
   [transaction :- models.transaction/Transaction
    db-connection]
-  (d/transact db-connection [(adapters.transaction/internal->database transaction)])
+  (client/transact db-connection [(adapters.transaction/internal->database transaction)])
   transaction)
 
 (s/defn by-customer :- [models.transaction/Transaction]
   [customer-id :- s/Int
    database]
-  (->> (d/q '[:find (pull ?transaction [*])
-              :in $ ?customer-id
-              :where [?transaction :transaction/customer-id ?customer-id]] database customer-id)
+  (->> (client/q '[:find (pull ?transaction [*])
+                   :in $ ?customer-id
+                   :where [?transaction :transaction/customer-id ?customer-id]] database customer-id)
        (mapv #(-> (first %)
                   (dissoc :db/id)
                   adapters.transaction/database->internal))))

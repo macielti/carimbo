@@ -1,19 +1,19 @@
 (ns carimbo.db.datahike.customer
-  (:require [carimbo.error :as error]
+  (:require [datahike.http.client :as client]
+            [carimbo.error :as error]
             [carimbo.models.customer :as models.customer]
-            [datahike.api :as d]
             [schema.core :as s]))
 
 (s/defn insert! :- models.customer/Customer
   [customer :- models.customer/Customer
    db-connection]
-  (d/transact db-connection [customer])
+  (client/transact db-connection [customer])
   customer)
 
 (s/defn lookup! :- models.customer/Customer
   [customer-id :- s/Int
    database]
-  (let [customer (-> (d/q '[:find (pull ?customer [*])
+  (let [customer (-> (client/q '[:find (pull ?customer [*])
                             :in $ ?customer-id
                             :where [?customer :customer/id ?customer-id]] database customer-id)
                      ffirst
@@ -28,7 +28,7 @@
 (s/defn lookup :- (s/maybe models.customer/Customer)
   [customer-id :- s/Int
    database]
-  (-> (d/q '[:find (pull ?customer [*])
+  (-> (client/q '[:find (pull ?customer [*])
              :in $ ?customer-id
              :where [?customer :customer/id ?customer-id]] database customer-id)
       ffirst
