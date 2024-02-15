@@ -2,7 +2,7 @@ FROM amazoncorretto:11-alpine
 
 WORKDIR /app
 
-COPY ./resources/datalevin-0.8.26-standalone.jar  /app/datalevin.jar
+COPY ./resources/datalevin.jar  /app/datalevin.jar
 
 RUN apk add lmdb
 

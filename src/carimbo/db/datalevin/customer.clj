@@ -10,7 +10,7 @@
   (d/transact! db-connection [customer])
   customer)
 
-(s/defn lookup! :- (s/maybe models.customer/Customer)
+(s/defn lookup! :- models.customer/Customer
   [customer-id :- s/Int
    database]
   (let [customer (-> (d/q '[:find (pull ?customer [*])
@@ -24,3 +24,12 @@
                                             "Customer not found"
                                             "Customer not exist on database"))
     customer))
+
+(s/defn lookup :- (s/maybe models.customer/Customer)
+  [customer-id :- s/Int
+   database]
+  (some-> (d/q '[:find (pull ?customer [*])
+                 :in $ ?customer-id
+                 :where [?customer :customer/id ?customer-id]] database customer-id)
+          ffirst
+          (dissoc :db/id)))

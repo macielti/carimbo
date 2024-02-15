@@ -1,5 +1,6 @@
 (ns carimbo.customers
-  (:require [com.stuartsierra.component :as component]
+  (:require [carimbo.db.datalevin.customer :as database.customer]
+            [com.stuartsierra.component :as component]
             [carimbo.controllers.customer :as controllers.customer]))
 
 (defrecord Customers [config datalevin]
@@ -8,9 +9,10 @@
     (let [{:keys [customers]} (-> config :config)
           db-connection (-> datalevin :datalevin)]
 
-      (doseq [{:customer/keys [limit balance] :as customer} customers
+      (doseq [{:customer/keys [id limit balance] :as customer} customers
               :let [customer' (assoc customer :customer/limit (biginteger limit)
-                                              :customer/balance (biginteger balance))]]
+                                              :customer/balance (biginteger balance))]
+              :when (nil? (database.customer/lookup id @db-connection))]
         (controllers.customer/create! customer' db-connection))
 
       component))
