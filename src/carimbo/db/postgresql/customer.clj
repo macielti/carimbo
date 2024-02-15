@@ -21,9 +21,9 @@
   (let [{:customer/keys [customer_id customer_balance customer_limit] :as customer} (jdbc/execute-one! db-connection ["SELECT customer_id, customer_limit, customer_balance FROM customer WHERE customer_id = ?"
                                                                                                                       customer-id])]
     (if customer
-      {:customer/id      customer_id
-       :customer/balance (biginteger customer_balance)
-       :customer/limit   (biginteger customer_limit)}
+      {:customer/id      (or customer_id (:customer_id customer))
+       :customer/balance (biginteger (or customer_balance (:customer_balance customer)))
+       :customer/limit   (biginteger (or customer_limit (:customer_limit customer)))}
       (error/http-friendly-exception 404
                                      "customer-not-found"
                                      "Customer not found"
@@ -40,22 +40,17 @@
        :customer/limit   (biginteger customer_limit)})))
 
 (s/defn update-balance!
-  [customer-id :- s/Int
+  [{:customer/keys [balance id]} :- models.customer/Customer
    {:transaction/keys [type amount]} :- models.transaction/Transaction
    db-connection]
-  (try (if (= type :debit)
-         (jdbc/execute! db-connection ["UPDATE customer
+  (if (= type :debit)
+    (jdbc/execute! db-connection ["UPDATE customer
                                    SET customer_balance = CASE
                                                             WHEN (customer_balance - ?) > -customer_limit THEN (customer_balance - ?)
                                                           END
-                                   WHERE customer_id = ?"
-                                       amount amount customer-id])
-         (jdbc/execute! db-connection ["UPDATE customer
+                                   WHERE customer_id = ? AND customer_balance = ?"
+                                  amount amount id balance])
+    (jdbc/execute! db-connection ["UPDATE customer
                                    SET customer_balance = (customer_balance + ?)
-                                   WHERE customer_id = ?"
-                                       amount customer-id]))
-       (catch Exception _
-         (error/http-friendly-exception 422
-                                        "inconsistent-balance"
-                                        "Balance debit over limit"
-                                        "Customer is trying to spend above the limit"))))
+                                   WHERE customer_id = ? AND customer_balance = ?"
+                                  amount id balance])))
