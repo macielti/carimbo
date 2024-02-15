@@ -8,6 +8,7 @@
             :url  "https://www.eclipse.org/legal/epl-2.0/"}
 
   :dependencies [[org.clojure/clojure "1.11.1"]
+                 [com.taoensso/timbre "6.3.1"]
                  [prismatic/plumbing "0.6.0"]
                  [camel-snake-kebab "0.4.3"]
                  [io.pedestal/pedestal.jetty "0.6.3"]
@@ -19,11 +20,9 @@
                  [prismatic/schema "1.4.1"]
                  [hashp "0.2.1"]
                  [clojure.java-time "1.4.2"]
-                 [io.replikativ/konserve "0.7.301"]
                  [nubank/matcher-combinators "3.5.0"]
                  [org.postgresql/postgresql "42.7.1"]
-                 [io.replikativ/datahike-jdbc "0.3.47"]
-                 [io.replikativ/datahike "0.6.1557"]
+                 [com.github.seancorfield/next.jdbc "1.3.909"]
                  [org.testcontainers/postgresql "1.17.6"]]
 
   :injections [(require 'hashp.core)]

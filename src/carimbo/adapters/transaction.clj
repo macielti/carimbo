@@ -21,7 +21,7 @@
 (s/defn wire->internal :- models.transaction/Transaction
   [{:keys [tipo descricao valor]} :- wire.in.transaction/Transaction
    customer-id :- s/Int]
-  {:transaction/customer-id  (long customer-id)
+  {:transaction/customer-id  customer-id
    :transaction/amount       (biginteger valor)
    :transaction/type         (wire-type->internal tipo)
    :transaction/description  descricao

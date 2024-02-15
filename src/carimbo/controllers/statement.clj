@@ -10,7 +10,7 @@
 (s/defn fetch-statement :- models.statement/Statement
   [customer-id :- s/Int
    db-connection]
-  (let [as-of (jt/local-date-time (jt/zone-id "UTC"))
+  #_(let [as-of (jt/local-date-time (jt/zone-id "UTC"))
         database @db-connection
         customer (database.customer/lookup! customer-id database)
         recent-transactions (->> (database.transaction/by-customer customer-id database)
