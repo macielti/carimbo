@@ -10,11 +10,11 @@ services:
       - "8081:8080"
     depends_on:
       - db
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: "0.6"
-#          memory: "120MB"
+  #    deploy:
+  #      resources:
+  #        limits:
+  #          cpus: "0.6"
+  #          memory: "120MB"
 
   api02:
     <<: *api
@@ -32,11 +32,11 @@ services:
       - db
     ports:
       - "9999:9999"
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: "0.1"
-#          memory: "10MB"
+  #    deploy:
+  #      resources:
+  #        limits:
+  #          cpus: "0.1"
+  #          memory: "10MB"
 
   db:
     build:
@@ -45,6 +45,7 @@ services:
     hostname: db
     ports:
       - "8898:8898"
+      - "9010:9010"
 #    deploy:
 #      resources:
 #        limits:
