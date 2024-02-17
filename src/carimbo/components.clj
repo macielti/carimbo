@@ -27,7 +27,7 @@
 
 (def system-test
   (component/system-map
-    :config (config/new-config "resources/config.example.edn" :test :edn)
+    :config (config/new-config "resources/config.edn" :test :edn)
     :postgresql (component/using (postgresql/new-mock-postgresql) [:config])
     :customers (component/using (customers/new-customers) [:config :postgresql])
     :routes (routes/new-routes diplomat.http-server/routes)
