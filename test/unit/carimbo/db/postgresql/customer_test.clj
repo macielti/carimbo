@@ -3,6 +3,7 @@
             [clojure.test :refer :all]
             [schema.test :as s]
             [fixtures.transaction]
+            [fixtures.customer]
             [carimbo.db.postgresql.customer :as database.customer])
   (:import (clojure.lang ExceptionInfo)))
 
@@ -34,12 +35,12 @@
       (is (= fixtures.customer/customer
              (database.customer/insert! fixtures.customer/customer database-connection)))
 
-      (database.customer/update-balance! 1 fixtures.transaction/credit-transaction database-connection)
+      (database.customer/update-balance! 1 (biginteger -100) database-connection)
 
       (is (thrown? ExceptionInfo (database.customer/update-balance! 1 (assoc fixtures.transaction/debit-transaction
-                                                                                                 :transaction/amount (biginteger 1000000)) database-connection)))
+                                                                        :transaction/amount (biginteger 1000000)) database-connection)))
 
       (is (= {:customer/id      1
-              :customer/balance 200
+              :customer/balance -100
               :customer/limit   100000}
              (database.customer/lookup! 1 database-connection))))))

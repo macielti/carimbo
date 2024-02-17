@@ -1,5 +1,6 @@
 (ns fixtures.transaction
-  (:require [java-time.api :as jt])
+  (:require [java-time.api :as jt]
+            [fixtures.customer])
   (:import (java.util Date)))
 
 (def requested-at (jt/local-date-time (jt/zone-id "UTC")))
@@ -7,12 +8,12 @@
 (def wire-credit-transaction
   {:valor     200
    :tipo      "c"
-   :descricao "2 reais ou um presente misterioso?"})
+   :descricao "Olha o PIX"})
 
 (def credit-transaction
   {:transaction/amount       (biginteger 200)
    :transaction/customer-id  1
-   :transaction/description  "2 reais ou um presente misterioso?"
+   :transaction/description  "PIX chegou!"
    :transaction/requested-at requested-at
    :transaction/type         :credit})
 
@@ -21,7 +22,11 @@
                             :transaction/description "tira"))
 
 (def database-credit-transaction
-  (assoc credit-transaction :transaction/requested-at (Date.)))
+  {:transaction/customer_id  fixtures.customer/customer-id
+   :transaction/amount       (biginteger 100)
+   :transaction/type         "c"
+   :transaction/description  "PIX chegou!"
+   :transaction/requested_at (Date.)})
 
 (def transactions
   [{:transaction/amount       (biginteger 200)

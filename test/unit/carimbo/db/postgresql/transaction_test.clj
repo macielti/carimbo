@@ -20,7 +20,7 @@
       (is (match? [{:transaction/customer-id  1
                     :transaction/amount       200
                     :transaction/type         :credit
-                    :transaction/description  "2 reais ou um presente misterioso?"
+                    :transaction/description  "PIX chegou!"
                     :transaction/requested-at jt/local-date-time?}
                    {:transaction/customer-id  1
                     :transaction/amount       200

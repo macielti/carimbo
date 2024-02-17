@@ -17,25 +17,16 @@
   (testing "Given a wire transaction, we can adapt to internal representation"
     (is (match? {:transaction/amount       200
                  :transaction/customer-id  1
-                 :transaction/description  "2 reais ou um presente misterioso?"
+                 :transaction/description  "Olha o PIX"
                  :transaction/requested-at jt/local-date-time?
                  :transaction/type         :credit}
                 (adapters.transaction/wire->internal fixtures.transaction/wire-credit-transaction 1)))))
 
-(s/deftest internal->database-test
-  (testing "Given a internal transaction entity, we can adapt to datomic"
-    (is (match? {:transaction/amount       200
-                 :transaction/customer-id  1
-                 :transaction/description  "2 reais ou um presente misterioso?"
-                 :transaction/requested-at inst?
-                 :transaction/type         :credit}
-                (adapters.transaction/internal->database fixtures.transaction/credit-transaction)))))
-
 (s/deftest database->internal-test
   (testing "Given a database transaction entity, we can adapt to internal model"
-    (is (match? {:transaction/amount       200
+    (is (match? {:transaction/amount       100
                  :transaction/customer-id  1
-                 :transaction/description  "2 reais ou um presente misterioso?"
+                 :transaction/description  "PIX chegou!"
                  :transaction/requested-at jt/local-date-time?
                  :transaction/type         :credit}
                 (adapters.transaction/database->internal fixtures.transaction/database-credit-transaction)))))
@@ -50,7 +41,7 @@
 
 (s/deftest ->wire-test
   (testing "Giving a Internal transaction entity, we should be able to externalize"
-    (is (match? {:descricao    "2 reais ou um presente misterioso?"
+    (is (match? {:descricao    "PIX chegou!"
                  :realizada_em string?
                  :tipo         "c"
                  :valor        200}
