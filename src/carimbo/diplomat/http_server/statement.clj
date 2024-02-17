@@ -4,7 +4,7 @@
 
 (defn fetch-statement
   [{{:keys [customer-id]} :path-params
-    {:keys [datalevin]}   :components}]
+    {:keys [postgresql]}  :components}]
   {:status 200
-   :body   (-> (controllers.statement/fetch-statement (Integer/parseInt customer-id) datalevin)
+   :body   (-> (controllers.statement/fetch-statement (Integer/parseInt customer-id) postgresql)
                adapters.statement/->wire)})

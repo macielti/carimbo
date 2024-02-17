@@ -7,8 +7,8 @@
 (s/defn create-transaction!
   [{transaction           :json-params
     {:keys [customer-id]} :path-params
-    {:keys [datalevin]}   :components}]
+    {:keys [postgresql]}    :components}]
   {:status 200
    :body   (-> (adapters.transaction/wire->internal transaction (Integer/parseInt customer-id))
-               (controllers.transaction/create-transaction! datalevin)
+               (controllers.transaction/create-transaction! postgresql)
                adapters.customer/internal->wire)})

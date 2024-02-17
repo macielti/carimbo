@@ -3,18 +3,19 @@ version: "3.5"
 services:
   api01: &api
     hostname: api01
-    build: .
+    image:
     volumes:
       - ./resources/config.edn:/app/resources/config.edn
+      - ./resources/schema.sql:/app/resources/schema.sql
     ports:
       - "8081:8080"
     depends_on:
       - db
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          cpus: "0.6"
-  #          memory: "120MB"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.6"
+          memory: "220MB"
 
   api02:
     <<: *api
@@ -32,25 +33,26 @@ services:
       - db
     ports:
       - "9999:9999"
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          cpus: "0.1"
-  #          memory: "10MB"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "10MB"
 
   db:
-    build:
-      context: .
-      dockerfile: ./DockerfileDatalevin
+    image: postgres:alpine
     hostname: db
+    environment:
+      - POSTGRES_DB=carimbo
+      - POSTGRES_USER=carimbo-miguel
+      - POSTGRES_PASSWORD=xerox
     ports:
-      - "8898:8898"
-      - "9010:9010"
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: "0.7"
-#          memory: "300MB"
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.7"
+          memory: "100MB"
 
 networks:
   default:
