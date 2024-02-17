@@ -21,14 +21,18 @@
                  [clojure.java-time "1.4.2"]
                  [org.postgresql/postgresql "42.7.1"]
                  [com.github.seancorfield/next.jdbc "1.3.909"]
-                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.4"]]
+                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.4"]
+                 [org.testcontainers/postgresql "1.17.6"]]
 
   :profiles {:test {:dependencies [[hashp "0.2.1"]
-                                   [nubank/matcher-combinators "3.5.0"]
-                                   [org.testcontainers/postgresql "1.17.6"]]
+                                   [nubank/matcher-combinators "3.5.0"]]
                     :injections   [(require 'hashp.core)]}}
 
   :repl-options {:init-ns carimbo.components}
+
+  :src-dirs ["src"]
+
+  :aot :all
 
   :test-paths ["test/unit" "test/integration" "test/helpers"]
 
