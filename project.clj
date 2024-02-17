@@ -18,21 +18,18 @@
                  [com.stuartsierra/component "1.1.0"]
                  [siili/humanize "0.1.1"]
                  [prismatic/schema "1.4.1"]
-                 [hashp "0.2.1"]
                  [clojure.java-time "1.4.2"]
-                 [nubank/matcher-combinators "3.5.0"]
                  [org.postgresql/postgresql "42.7.1"]
                  [com.github.seancorfield/next.jdbc "1.3.909"]
-                 [org.testcontainers/postgresql "1.17.6"]
                  [clojure.jdbc/clojure.jdbc-c3p0 "0.3.4"]]
 
-  :injections [(require 'hashp.core)]
+  :profiles {:test {:dependencies [[hashp "0.2.1"]
+                                   [nubank/matcher-combinators "3.5.0"]
+                                   [org.testcontainers/postgresql "1.17.6"]]
+                    :injections   [(require 'hashp.core)]}}
 
   :repl-options {:init-ns carimbo.components}
 
   :test-paths ["test/unit" "test/integration" "test/helpers"]
-
-  :jvm-opts ^:replace ["--add-opens=java.base/java.nio=ALL-UNNAMED"
-                       "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
 
   :main carimbo.components)

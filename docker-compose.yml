@@ -3,7 +3,8 @@ version: "3.5"
 services:
   api01: &api
     hostname: api01
-    image: ghcr.io/macielti/carimbo/carimbo:1708169997
+    #image: ghcr.io/macielti/carimbo/carimbo:1708169997
+    build: .
     volumes:
       - ./resources/config.edn:/app/resources/config.edn
       - ./resources/schema.sql:/app/resources/schema.sql

@@ -6,8 +6,7 @@
             [carimbo.models.transaction :as models.transaction]
             [next.jdbc :as jdbc]
             [schema.core :as s])
-  (:import (clojure.lang ExceptionInfo)
-           (org.postgresql.util PSQLException)))
+  (:import (org.postgresql.util PSQLException)))
 
 (s/defn create-transaction! :- models.customer/Customer
   [{:transaction/keys [customer-id amount type] :as transaction} :- models.transaction/Transaction
