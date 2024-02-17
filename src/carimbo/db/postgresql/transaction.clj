@@ -9,8 +9,22 @@
   [customer-id :- s/Int
    db-connection]
   (->> (jdbc/execute! db-connection ["SELECT customer_id, amount, type, description, requested_at FROM transaction WHERE customer_id = ?"
-                                         customer-id])
+                                     customer-id])
        (map (fn [{:keys [customer_id amount type description requested_at]}]
+              {:transaction/customer-id  customer_id
+               :transaction/amount       (biginteger amount)
+               :transaction/type         (adapters.transaction/wire-type->internal type)
+               :transaction/description  description
+               :transaction/requested-at (jt/local-date-time requested_at (jt/zone-id "UTC"))}))))
+
+(s/defn recent-by-customer :- [models.transaction/Transaction]
+  [customer-id :- s/Int
+   db-connection]
+  (->> (jdbc/execute! db-connection ["SELECT customer_id, amount, type, description, requested_at FROM transaction
+                                      WHERE customer_id = ?
+                                      ORDER BY requested_at desc limit 10"
+                                     customer-id])
+       (map (fn [{:transaction/keys [customer_id amount type description requested_at]}]
               {:transaction/customer-id  customer_id
                :transaction/amount       (biginteger amount)
                :transaction/type         (adapters.transaction/wire-type->internal type)

@@ -23,7 +23,8 @@
                  [nubank/matcher-combinators "3.5.0"]
                  [org.postgresql/postgresql "42.7.1"]
                  [com.github.seancorfield/next.jdbc "1.3.909"]
-                 [org.testcontainers/postgresql "1.17.6"]]
+                 [org.testcontainers/postgresql "1.17.6"]
+                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.4"]]
 
   :injections [(require 'hashp.core)]
 

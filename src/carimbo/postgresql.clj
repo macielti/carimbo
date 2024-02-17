@@ -2,7 +2,8 @@
   (:require [com.stuartsierra.component :as component]
             [next.jdbc :as jdbc]
             [next.jdbc.result-set :as rs]
-            [schema.core :as s])
+            [schema.core :as s]
+            [jdbc.pool.c3p0 :as pool])
   (:import (org.testcontainers.containers GenericContainer PostgreSQLContainer)))
 
 (defn get-connection
@@ -13,13 +14,20 @@
 (defrecord PostgreSQL [config]
   component/Lifecycle
   (start [component]
-    (let [config-content (:config config)
-          postgresql-uri (-> config-content :postgresql-uri)
+    (let [{{:keys [username password host port database]} :postgresql} (:config config)
+          db-connection (pool/make-datasource-spec
+                          {:classname         "org.postgresql.Driver"
+                           :subprotocol       "postgresql"
+                           :user              username
+                           :password          password
+                           :subname           (str "//" host ":" port "/" database)
+                           :initial-pool-size 3
+                           :max-pool-size     14})
           schema-sql (slurp "resources/schema.sql")]
 
-      (jdbc/execute! (get-connection postgresql-uri) [schema-sql])
+      (jdbc/execute! db-connection [schema-sql])
 
-      (assoc component :postgresql postgresql-uri)))
+      (assoc component :postgresql db-connection)))
 
   (stop [component]
     (assoc component :postgresql nil)))
@@ -31,8 +39,8 @@
   [schema-sql-path :- s/Str]
   (let [postgresql-container (doto (PostgreSQLContainer. "postgres:15-alpine")
                                .start)
-        connection(-> (jdbc/get-connection {:dbtype  "postgresql"
-                                            :jdbcUrl  (str (.getJdbcUrl postgresql-container) "&user=test&password=test")})
+        connection (-> (jdbc/get-connection {:dbtype  "postgresql"
+                                             :jdbcUrl (str (.getJdbcUrl postgresql-container) "&user=test&password=test")})
                        (jdbc/with-options {:builder-fn rs/as-unqualified-maps}))]
 
     (jdbc/execute! connection [(slurp schema-sql-path)])
