@@ -32,4 +32,7 @@
 
   :test-paths ["test/unit" "test/integration" "test/helpers"]
 
+  :jvm-opts ^:replace ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+                       "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"]
+
   :main carimbo.components)
