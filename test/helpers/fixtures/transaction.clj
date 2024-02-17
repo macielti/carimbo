@@ -16,6 +16,10 @@
    :transaction/requested-at requested-at
    :transaction/type         :credit})
 
+(def debit-transaction
+  (assoc credit-transaction :transaction/type :debit
+                            :transaction/description "tira"))
+
 (def database-credit-transaction
   (assoc credit-transaction :transaction/requested-at (Date.)))
 

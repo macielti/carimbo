@@ -6,5 +6,5 @@
                       :db/doc       "Customer id"}
    :customer/limit   {:db/valueType :db.type/bigint
                       :db/doc       "Credit limit"}
-   :customer/balance {:db/valueType    :db.type/bigint
-                      :db/doc          "Account balance"}})
+   :customer/balance {:db/valueType :db.type/bigint
+                      :db/doc       "Account balance"}})
