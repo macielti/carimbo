@@ -3,7 +3,7 @@ version: "3.5"
 services:
   api01: &api
     hostname: api01
-    build: .
+    image: ghcr.io/macielti/carimbo/carimbo:1708169997
     volumes:
       - ./resources/config.edn:/app/resources/config.edn
     ports:
