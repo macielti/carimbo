@@ -7,3 +7,9 @@
   [{:customer/keys [limit balance]} :- models.customer/Customer]
   {:limite limit
    :saldo  balance})
+
+(s/defn database->internal :- models.customer/Customer
+  [{:customer/keys [customer_id customer_balance customer_limit]}]
+  {:customer/id      customer_id
+   :customer/limit   customer_limit
+   :customer/balance customer_balance})
