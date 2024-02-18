@@ -1,11 +1,11 @@
 (ns carimbo.components
   (:require [com.stuartsierra.component :as component]
-            [carimbo.config :as config]
-            [carimbo.service :as service]
             [carimbo.customers :as customers]
             [carimbo.diplomat.http-server :as diplomat.http-server]
-            [carimbo.routes :as routes]
-            [carimbo.postgresql :as postgresql]
+            [common-clj.component.service :as component.service]
+            [common-clj.component.postgresql :as component.postgresql]
+            [common-clj.component.routes :as component.routes]
+            [common-clj.component.config :as component.config]
             [schema.core :as s])
   (:gen-class))
 
@@ -16,21 +16,21 @@
 
 (def system
   (component/system-map
-    :config (config/new-config "resources/config.edn" :prod :edn)
-    :postgresql (component/using (postgresql/new-postgresql) [:config])
+    :config (component.config/new-config "resources/config.edn" :prod :edn)
+    :postgresql (component/using (component.postgresql/new-postgresql) [:config])
     :customers (component/using (customers/new-customers) [:config :postgresql])
-    :routes (routes/new-routes diplomat.http-server/routes)
-    :service (component/using (service/new-service) [:routes :postgresql :config])))
+    :routes (component.routes/new-routes diplomat.http-server/routes)
+    :service (component/using (component.service/new-service) [:routes :postgresql :config])))
 
 (defn start-system! []
   (component/start system))
 
 (def system-test
   (component/system-map
-    :config (config/new-config "resources/config.edn" :test :edn)
-    :postgresql (component/using (postgresql/new-mock-postgresql) [:config])
+    :config (component.config/new-config "resources/config.edn" :test :edn)
+    :postgresql (component/using (component.postgresql/new-mock-postgresql) [:config])
     :customers (component/using (customers/new-customers) [:config :postgresql])
-    :routes (routes/new-routes diplomat.http-server/routes)
-    :service (component/using (service/new-service) [:routes :postgresql :config])))
+    :routes (component.routes/new-routes diplomat.http-server/routes)
+    :service (component/using (component.service/new-service) [:routes :postgresql :config])))
 
 (def -main start-system!)

@@ -1,5 +1,5 @@
 (ns carimbo.db.postgresql.customer
-  (:require [carimbo.error :as error]
+  (:require [common-clj.error.core :as error]
             [carimbo.models.customer :as models.customer]
             [next.jdbc :as jdbc]
             [schema.core :as s]))

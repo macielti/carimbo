@@ -1,9 +1,9 @@
 (ns carimbo.controllers.transaction
   (:require [carimbo.db.postgresql.customer :as database.customer]
             [carimbo.db.postgresql.transaction :as database.transaction]
-            [carimbo.error :as error]
             [carimbo.models.customer :as models.customer]
             [carimbo.models.transaction :as models.transaction]
+            [common-clj.error.core :as error]
             [next.jdbc :as jdbc]
             [schema.core :as s])
   (:import (org.postgresql.util PSQLException)))

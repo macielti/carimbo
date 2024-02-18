@@ -2,7 +2,7 @@
   (:require [carimbo.diplomat.http-server.transaction :as diplomat.http-server.transaction]
             [carimbo.diplomat.http-server.statement :as diplomat.http-server.statement]
             [carimbo.wire.in.transaction :as wire.in.transaction]
-            [carimbo.interceptors :as interceptors]))
+            [common-clj.io.interceptors :as interceptors]))
 
 (def routes [["/clientes/:customer-id/transacoes"
               :post [(interceptors/schema-body-in-interceptor wire.in.transaction/Transaction)

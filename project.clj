@@ -6,25 +6,10 @@
             :url  "https://www.eclipse.org/legal/epl-2.0/"}
 
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [com.taoensso/timbre "6.3.1"]
-                 [prismatic/plumbing "0.6.0"]
-                 [camel-snake-kebab "0.4.3"]
-                 [io.pedestal/pedestal.jetty "0.6.3"]
-                 [io.pedestal/pedestal.route "0.6.3"]
-                 [io.pedestal/pedestal.service "0.6.3"]
-                 [io.pedestal/pedestal.interceptor "0.6.3"]
-                 [com.stuartsierra/component "1.1.0"]
-                 [siili/humanize "0.1.1"]
-                 [prismatic/schema "1.4.1"]
                  [clojure.java-time "1.4.2"]
-                 [org.postgresql/postgresql "42.7.1"]
-                 [com.github.seancorfield/next.jdbc "1.3.909"]
-                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.4"]
-                 [org.testcontainers/postgresql "1.17.6"]]
+                 [net.clojars.macielti/common-clj "25.49.48"]]
 
-  :profiles {:test {:dependencies [[hashp "0.2.1"]
-                                   [nubank/matcher-combinators "3.5.0"]]
-                    :injections   [(require 'hashp.core)]}}
+  :profiles {:test {:injections [(require 'hashp.core)]}}
 
   :repl-options {:init-ns carimbo.components}
 
