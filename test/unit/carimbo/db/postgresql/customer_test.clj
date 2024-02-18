@@ -35,10 +35,10 @@
       (is (= fixtures.customer/customer
              (database.customer/insert! fixtures.customer/customer database-connection)))
 
-      (database.customer/update-balance! 1 (biginteger -100) database-connection)
+      (database.customer/update-balance! 1 -100 database-connection)
 
       (is (thrown? ExceptionInfo (database.customer/update-balance! 1 (assoc fixtures.transaction/debit-transaction
-                                                                        :transaction/amount (biginteger 1000000)) database-connection)))
+                                                                        :transaction/amount 1000000) database-connection)))
 
       (is (= {:customer/id      1
               :customer/balance -100
