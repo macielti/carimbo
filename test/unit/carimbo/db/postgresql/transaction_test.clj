@@ -1,6 +1,6 @@
 (ns carimbo.db.postgresql.transaction-test
-  (:require [carimbo.postgresql :as postgresql]
-            [clojure.test :refer :all]
+  (:require [clojure.test :refer :all]
+            [common-clj.component.postgresql :as component.postgresql]
             [fixtures.transaction]
             [carimbo.db.postgresql.transaction :as database.transaction]
             [java-time.api :as jt]
@@ -9,12 +9,12 @@
 
 (s/deftest insert-test
   (testing "That we can update balance"
-    (let [{:keys [database-connection]} (postgresql/postgresql-for-unit-tests "resources/schema.sql")]
+    (let [{:keys [database-connection]} (component.postgresql/posgresql-component-for-unit-tests "resources/schema.sql")]
       (database.transaction/insert! fixtures.transaction/credit-transaction database-connection))))
 
 (s/deftest by-customer-test
   (testing "Query transactions by customer"
-    (let [{:keys [database-connection]} (postgresql/postgresql-for-unit-tests "resources/schema.sql")]
+    (let [{:keys [database-connection]} (component.postgresql/posgresql-component-for-unit-tests "resources/schema.sql")]
       (database.transaction/insert! fixtures.transaction/credit-transaction database-connection)
       (database.transaction/insert! fixtures.transaction/debit-transaction database-connection)
       (is (match? [{:transaction/customer-id  1

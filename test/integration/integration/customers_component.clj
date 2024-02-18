@@ -2,12 +2,13 @@
   (:require [carimbo.db.postgresql.customer :as database.customer]
             [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
+            [common-clj.component.helper.core :as component.helper]
             [carimbo.components :as components]
             [schema.test :as s]))
 
 (s/deftest customers-component
   (let [system (component/start components/system-test)
-        db-connection (components/get-component-content :postgresql system)]
+        db-connection (component.helper/get-component-content :postgresql system)]
 
     (testing "Performed registration of initial customers entities"
       (is (= {:customer/balance 0

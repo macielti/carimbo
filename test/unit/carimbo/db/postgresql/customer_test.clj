@@ -1,5 +1,5 @@
 (ns carimbo.db.postgresql.customer-test
-  (:require [carimbo.postgresql :as postgresql]
+  (:require [common-clj.component.postgresql :as component.postgresql]
             [clojure.test :refer :all]
             [schema.test :as s]
             [fixtures.transaction]
@@ -9,7 +9,7 @@
 
 (s/deftest insert-and-lookup-test
   (testing "Given a customer entity we can persist it on the database (datalevin)"
-    (let [{:keys [database-connection]} (postgresql/postgresql-for-unit-tests "resources/schema.sql")]
+    (let [{:keys [database-connection]} (component.postgresql/posgresql-component-for-unit-tests "resources/schema.sql")]
 
       (is (= fixtures.customer/customer
              (database.customer/insert! fixtures.customer/customer database-connection)))
@@ -30,7 +30,7 @@
 
 (s/deftest update-balance-test
   (testing "That we can update balance"
-    (let [{:keys [database-connection]} (postgresql/postgresql-for-unit-tests "resources/schema.sql")]
+    (let [{:keys [database-connection]} (component.postgresql/posgresql-component-for-unit-tests "resources/schema.sql")]
 
       (is (= fixtures.customer/customer
              (database.customer/insert! fixtures.customer/customer database-connection)))
