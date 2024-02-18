@@ -18,9 +18,9 @@
   (let [{:customer/keys [customer_id customer_balance customer_limit] :as customer} (jdbc/execute-one! db-connection ["SELECT customer_id, customer_limit, customer_balance FROM customer WHERE customer_id = ?"
                                                                                                                       customer-id])]
     (if customer
-      {:customer/id      (or customer_id (:customer_id customer))
-       :customer/balance (biginteger (or customer_balance (:customer_balance customer)))
-       :customer/limit   (biginteger (or customer_limit (:customer_limit customer)))}
+      {:customer/id      customer_id
+       :customer/balance customer_balance
+       :customer/limit   customer_limit}
       (error/http-friendly-exception 404
                                      "customer-not-found"
                                      "Customer not found"
@@ -33,12 +33,12 @@
                                                                                                                       customer-id])]
     (when customer
       {:customer/id      customer_id
-       :customer/balance (biginteger customer_balance)
-       :customer/limit   (biginteger customer_limit)})))
+       :customer/balance customer_balance
+       :customer/limit   customer_limit})))
 
 (s/defn update-balance!
   [customer-id :- s/Int
-   amount :- BigInteger
+   amount :- s/Int
    db-connection]
   (jdbc/execute! db-connection ["UPDATE customer
                                    SET customer_balance = (customer_balance + ?)

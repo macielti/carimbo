@@ -9,11 +9,9 @@
     (let [{:keys [customers]} (-> config :config)
           db-connection (:postgresql postgresql)]
 
-      (doseq [{:customer/keys [id limit balance] :as customer} customers
-              :let [customer' (assoc customer :customer/limit (biginteger limit)
-                                              :customer/balance (biginteger balance))]
-              :when (nil? (database.customer/lookup id db-connection))]
-        (controllers.customer/create! customer' db-connection))
+      (doseq [customer customers
+              :when (nil? (database.customer/lookup (:customer/id customer) db-connection))]
+        (controllers.customer/create! customer db-connection))
 
       component))
 

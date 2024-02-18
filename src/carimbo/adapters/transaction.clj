@@ -21,7 +21,7 @@
   [{:keys [tipo descricao valor]} :- wire.in.transaction/Transaction
    customer-id :- s/Int]
   {:transaction/customer-id  customer-id
-   :transaction/amount       (biginteger valor)
+   :transaction/amount       valor
    :transaction/type         (wire-type->internal tipo)
    :transaction/description  descricao
    :transaction/requested-at (jt/local-date-time (jt/zone-id "UTC"))})
@@ -29,7 +29,7 @@
 (s/defn database->internal :- models.transaction/Transaction
   [{:transaction/keys [customer_id amount description requested_at type]}]
   {:transaction/customer-id  customer_id
-   :transaction/amount       (biginteger amount)
+   :transaction/amount       amount
    :transaction/type         (wire-type->internal type)
    :transaction/description  description
    :transaction/requested-at (jt/local-date-time requested_at (jt/zone-id "UTC"))})

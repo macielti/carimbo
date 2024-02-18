@@ -3,9 +3,9 @@
             [schema.core :as s]))
 
 (def balance-skeleton
-  {:total        BigInteger
+  {:total        s/Int
    :data_extrato s/Str
-   :limite       BigInteger})
+   :limite       s/Int})
 
 (s/defschema Balance
   balance-skeleton)

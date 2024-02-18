@@ -17,7 +17,7 @@
                     :credit (+ amount)
                     :debit (- amount))]
       (jdbc/execute! tx ["select pg_advisory_xact_lock(?)" customer-id])
-      (try (database.customer/update-balance! customer-id (biginteger amount') tx)
+      (try (database.customer/update-balance! customer-id amount' tx)
            (catch PSQLException _
              (error/http-friendly-exception 422
                                             "inconsistent-balance"

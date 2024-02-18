@@ -2,5 +2,5 @@
   (:require [schema.core :as s]))
 
 (s/defschema Customer
-  {:limite BigInteger
-   :saldo  BigInteger})
+  {:limite s/Int
+   :saldo  s/Int})

@@ -3,8 +3,8 @@
 
 (def customer-skeleton
   {:customer/id      s/Int
-   :customer/limit   BigInteger
-   :customer/balance BigInteger})
+   :customer/limit   s/Int
+   :customer/balance s/Int})
 
 (s/defschema Customer
   customer-skeleton)
