@@ -9,3 +9,8 @@
     (is (= {:limite 100000
             :saldo  0}
            (adapters.customer/internal->wire fixtures.customer/customer)))))
+
+(s/deftest database-to-internal-test
+  (testing "Giving an Database customer entity we can internalize it"
+    (is (= fixtures.customer/customer
+           (adapters.customer/database->internal fixtures.customer/customer-database)))))

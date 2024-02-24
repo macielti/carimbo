@@ -15,7 +15,7 @@ jobs:
         run: |
           VERSION=$(date +%s)
           docker login docker.pkg.github.com --username macielti --password ${{ secrets.GITHUB_TOKEN }}
-          docker build . --tag docker.pkg.github.com/macielti/carimbo/carimbo:${VERSION}
+          docker buildx build . --platform linux/amd64 --tag docker.pkg.github.com/macielti/carimbo/carimbo:${VERSION}
           docker push docker.pkg.github.com/macielti/carimbo/carimbo:${VERSION}
         env:
           CI: true
